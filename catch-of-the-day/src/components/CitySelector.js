@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import cities from '../hardcoded_cities';
 import City from './city';
@@ -27,28 +28,22 @@ class CitySelector extends React.Component {
         else {
             tmpcities = cities;
         }
+        if(tmpcities.length ===1){
+            this.props.selectCity(tmpcities[0]);
 
+        }
         // const prev = this.state.selectedcities;
         this.setState({selectedcities: tmpcities});
 
     }
 
     render() {
-         var content = "<div><p>City:<input type=\"text\" placeholder=\"type to search for city\"/></p>";
-        for (var i = 0; i < this.state.selectedcities.length; i++) {
-            var city = this.state.selectedcities[i];
-            console.log(city);
-            content = content + "<span>" + city.name + "</span>";
-
-        }
-
-        // return ( <p>iets</p> )
-        return (<p>City:<input type="text" ref={(input) => { this.selectedcity = input}}
+        return (<div>City:<input type="text" ref={(input) => { this.selectedcity = input}}
                                     placeholder="type to search for city" onChange={(e) => this.changecity(e)}/>
             {
-                this.state.selectedcities.map(city =><City city={city}/>)
+                this.state.selectedcities.map(city =><City city={city} key={city.id} selectCity={this.props.selectCity}/>)
             }
-        </p>)
+        </div>)
 
 
     }
